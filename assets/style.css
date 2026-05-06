@@ -1,0 +1,19 @@
+/* Titre du systeme reco */
+h1 {
+    color : white !important;
+}
+
+/* Menu déroulant police */
+.stSelectbox div {
+    color : black !important
+}
+
+/* Couleur "choisis ton film" */
+
+.stSelectbox label {
+    color: white !important;
+}
+
+div [data-testid="stWidgetLabel"] p {
+  color: white !important;
+}
