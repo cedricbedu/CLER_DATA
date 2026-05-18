@@ -124,7 +124,7 @@ df = df.drop_duplicates(subset=["tconst"])
 # HEADER
 st.markdown("""
 <div class="logo">🎞️ CinéMatch</div>
-<div class="subtitle">Votre assistant cinéma intelligent</div>
+<div class="subtitle">Powered By CLER Data</div>
 """, unsafe_allow_html=True)
 
 if st.button("← Retour à l'accueil"):
