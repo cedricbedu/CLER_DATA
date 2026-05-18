@@ -24,43 +24,39 @@ div [data-testid="stWidgetLabel"] p {
   color: white !important;
 }
 
-button[data-testid="baseButton-secondary"] {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    border-radius: 8px !important;
+div[data-testid="stMarkdownContainer"]:empty {
+    display: none;
 }
 
-button[data-testid="baseButton-secondary"]:hover {
-    background-color: rgba(255, 255, 255, 0.25) !important;
-    color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    background-color: #0a1628;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 2rem;
 }
 
-/* Encadré principal */
-.main > div {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 0.5px solid rgba(255, 255, 255, 0.12) !important;
-    border-radius: 16px !important;
-    padding: 2rem 2.5rem !important;
-    backdrop-filter: blur(4px) !important;
-    max-width: 900px !important;
-    margin: 2rem auto !important;
+section[data-testid="stMain"] {
+    padding-top: 70px !important;
 }
 
-/* Espacement entre les éléments */
-.stTitle {
-    margin-bottom: 0.5rem !important;
-}
-
-.stSubheader {
-    margin-bottom: 1.5rem !important;
-}
-
-.stSelectbox {
-    margin-bottom: 1.5rem !important;
-}
-
-.stButton {
-    margin-bottom: 2rem !important;
+.navbar {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 950px;        /* même largeur que ton contenu */
+    background: rgba(10, 22, 40, 0.75);
+    backdrop-filter: blur(8px);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 2rem;
 }

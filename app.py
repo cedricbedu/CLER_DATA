@@ -3,10 +3,47 @@ from recommandation import film_reco, df_encode, df
 import base64
 import streamlit.components.v1 as components
 
+with open("assets/logo.png", "rb") as f:
+    logo_b64 = base64.b64encode(f.read()).decode()
+
+st.markdown(f"""
+<style>
+.navbar {{
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 950px;
+    background: rgba(10, 22, 40, 0.75);
+    backdrop-filter: blur(8px);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 2rem;
+}}
+</style>
+
+<div class="navbar">
+    <div style="display:flex; align-items:center; gap:0.8rem;">
+        <div style="background:white; border:1px solid red; border-radius:50%; padding:6px; display:flex; align-items:center; justify-content:center;">
+            <img src="data:image/png;base64,{logo_b64}" style="height:35px; width:35px; object-fit:contain;">
+        </div>
+        <div style="display:flex; flex-direction:column; line-height:1.1;">
+            <span style="color:white; font-weight:bold; font-size:1.5rem;">Cinematch</span>
+            <span style="color:rgba(255,255,255,0.55); font-style:italic; font-size:0.7rem;">powered by Cinéma Lumière</span>
+        </div>
+    </div>
+    <a href="#" style="color:white;">Notre Cinema & Nos Partenaires</a>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown("""
 <style>
 /* Encadré autour du contenu */
-section[data-testid="stMain"] > div {
+section[data-testid="stMain"] > div:not(:empty) {
     background: rgba(255, 255, 255, 0.06) !important;
     border: 0.5px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 16px !important;
@@ -138,7 +175,6 @@ if st.button("Recommander"):
             flex: 0 0 calc(20% - 10px);
             background: rgba(255,255,255,0.07);
             border: 0.5px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
             overflow: hidden;
             transition: transform 0.3s ease, opacity 0.4s ease;
         }}
@@ -247,7 +283,7 @@ if st.button("Recommander"):
 <div style="
     text-align: center;
     padding: 1.2rem;
-    margin-top: 1rem;
+    margin-top: 0;
     background: rgba(255,255,255,0.05);
     border: 0.5px solid rgba(255,255,255,0.1);
     border-radius: 12px;
