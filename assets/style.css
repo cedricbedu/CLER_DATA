@@ -1,6 +1,12 @@
 /* Titre du systeme reco */
 h1 {
     color : white !important;
+    text-align: center;
+}
+
+h3 {
+    color : white !important;
+    text-align: center;
 }
 
 /* Menu déroulant police */
@@ -16,4 +22,45 @@ h1 {
 
 div [data-testid="stWidgetLabel"] p {
   color: white !important;
+}
+
+button[data-testid="baseButton-secondary"] {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 8px !important;
+}
+
+button[data-testid="baseButton-secondary"]:hover {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Encadré principal */
+.main > div {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
+    padding: 2rem 2.5rem !important;
+    backdrop-filter: blur(4px) !important;
+    max-width: 900px !important;
+    margin: 2rem auto !important;
+}
+
+/* Espacement entre les éléments */
+.stTitle {
+    margin-bottom: 0.5rem !important;
+}
+
+.stSubheader {
+    margin-bottom: 1.5rem !important;
+}
+
+.stSelectbox {
+    margin-bottom: 1.5rem !important;
+}
+
+.stButton {
+    margin-bottom: 2rem !important;
 }
