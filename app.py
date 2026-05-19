@@ -45,6 +45,11 @@ st.markdown("""
 <style>
 /* Encadré autour du contenu */
 section[data-testid="stMain"] > div:not(:empty) {
+
+st.markdown("""
+<style>
+/* Encadré autour du contenu */
+section[data-testid="stMain"] > div {
     background: rgba(255, 255, 255, 0.06) !important;
     border: 0.5px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 16px !important;
@@ -132,6 +137,14 @@ if recommander:
     
     st.markdown("<h3 style='text-align:center;'>🍿 Vous aimerez aussi...</h3>", unsafe_allow_html=True)
     
+if st.button("Recommander"):
+    resultats = film_reco(film_choisi)
+    resultats = resultats.merge(
+        df[["title", "poster_url", "youtube_url", "averageRating"]],
+        on="title",
+        how="left"
+    )
+
     cards_html = ""
     for _, row in resultats.iterrows():
         annee = str(row['release_date'])[:4]
@@ -183,6 +196,7 @@ if recommander:
             flex: 0 0 calc(20% - 10px);
             background: rgba(255,255,255,0.07);
             border: 0.5px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
             overflow: hidden;
             transition: transform 0.3s ease, opacity 0.4s ease;
         }}
@@ -315,5 +329,19 @@ font-family: sans-serif;
     © 2026 &nbsp;<strong style="color: rgba(255,255,255,0.8);">Cinéma Lumière</strong>
     &nbsp;·&nbsp; Trouvez votre prochain film préféré
 </span>
+    st.markdown("""
+<div style="
+    text-align: center;
+    padding: 1.2rem;
+    margin-top: 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    font-family: sans-serif;
+">
+    <span style="font-size: 13px; color: rgba(255,255,255,0.5);">
+        © 2026 &nbsp;<strong style="color: rgba(255,255,255,0.8);">Cinéma Lumière</strong>
+        &nbsp;·&nbsp; Trouvez votre prochain film préféré
+    </span>
 </div>
 """, unsafe_allow_html=True)
