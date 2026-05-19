@@ -2,6 +2,49 @@ import streamlit as st
 from recommandation import film_reco, df_encode, df
 import base64
 import streamlit.components.v1 as components
+import random
+
+with open("assets/logo.png", "rb") as f:
+    logo_b64 = base64.b64encode(f.read()).decode()
+
+st.markdown(f"""
+<style>
+.navbar {{
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 950px;
+    background: rgba(10, 22, 40, 0.75);
+    backdrop-filter: blur(8px);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 2rem;
+}}
+</style>
+
+<div class="navbar">
+    <div style="display:flex; align-items:center; gap:0.8rem;">
+        <div style="background:white; border:1px solid red; border-radius:50%; padding:6px; display:flex; align-items:center; justify-content:center;">
+            <img src="data:image/png;base64,{logo_b64}" style="height:35px; width:35px; object-fit:contain;">
+        </div>
+        <div style="display:flex; flex-direction:column; line-height:1.1;">
+            <span style="color:white; font-weight:bold; font-size:1.5rem;">Cinematch</span>
+            <span style="color:rgba(255,255,255,0.55); font-style:italic; font-size:0.7rem;">powered by Cinéma Lumière</span>
+        </div>
+    </div>
+    <a href="#" style="color:white;">Notre Cinema & Nos Partenaires</a>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+/* Encadré autour du contenu */
+section[data-testid="stMain"] > div:not(:empty) {
 
 st.markdown("""
 <style>
@@ -79,6 +122,21 @@ film_choisi = st.selectbox(
 
 
 
+col1, col2, col3 = st.columns([1.8, 1, 1.8])
+with col2:
+    recommander = st.button("Recommander")
+
+if recommander:
+    with st.spinner("🎬 Silence, ça tourne !"):
+        resultats = film_reco(film_choisi)
+        resultats = resultats.merge(
+            df[["title", "poster_url", "youtube_url", "averageRating"]],
+            on="title",
+            how="left"
+        )
+    
+    st.markdown("<h3 style='text-align:center;'>🍿 Vous aimerez aussi...</h3>", unsafe_allow_html=True)
+    
 if st.button("Recommander"):
     resultats = film_reco(film_choisi)
     resultats = resultats.merge(
@@ -243,6 +301,34 @@ if st.button("Recommander"):
     </script>
     """, height=420, scrolling=False)
 
+affiches = df['poster_url'].dropna().tolist()
+selection = random.sample(affiches, 21)
+
+st.markdown("<h3 style='text-align:center;'>🎬 Découvrez notre catalogue</h3>", unsafe_allow_html=True)
+
+for ligne in range(3):
+    cols = st.columns(7)
+    for i, col in enumerate(cols):
+        with col:
+            st.markdown(f"""
+                <img src="{selection[ligne * 7 + i]}" 
+                style="width:100%; height:130px; object-fit:cover; border-radius:10px; margin-bottom:8px; border: 2px solid black">
+            """, unsafe_allow_html=True)
+
+st.markdown("""
+<div style="
+text-align: center;
+padding: 1.2rem;
+margin-top: 0;
+background: rgba(255,255,255,0.05);
+border: 0.5px solid rgba(255,255,255,0.1);
+border-radius: 12px;
+font-family: sans-serif;
+">
+<span style="font-size: 13px; color: rgba(255,255,255,0.5);">
+    © 2026 &nbsp;<strong style="color: rgba(255,255,255,0.8);">Cinéma Lumière</strong>
+    &nbsp;·&nbsp; Trouvez votre prochain film préféré
+</span>
     st.markdown("""
 <div style="
     text-align: center;
