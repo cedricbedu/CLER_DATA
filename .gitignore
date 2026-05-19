@@ -1,3 +1,7 @@
 projet2/
 __pycache__/
 .env
+data/DF_ENCODE.csv
+data/DF_INTERMEDIAIRE_TMDB.csv 
+data/DF_INTERVENANTS_TMDB.csv
+data/KNN_reco.ipynb
