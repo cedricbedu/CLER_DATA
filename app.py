@@ -2,6 +2,7 @@ import streamlit as st
 from recommandation import film_reco, df_encode, df
 import base64
 import streamlit.components.v1 as components
+import random
 
 with open("assets/logo.png", "rb") as f:
     logo_b64 = base64.b64encode(f.read()).decode()
@@ -116,14 +117,21 @@ film_choisi = st.selectbox(
 
 
 
-if st.button("Recommander"):
-    resultats = film_reco(film_choisi)
-    resultats = resultats.merge(
-        df[["title", "poster_url", "youtube_url", "averageRating"]],
-        on="title",
-        how="left"
-    )
+col1, col2, col3 = st.columns([1.8, 1, 1.8])
+with col2:
+    recommander = st.button("Recommander")
 
+if recommander:
+    with st.spinner("🎬 Silence, ça tourne !"):
+        resultats = film_reco(film_choisi)
+        resultats = resultats.merge(
+            df[["title", "poster_url", "youtube_url", "averageRating"]],
+            on="title",
+            how="left"
+        )
+    
+    st.markdown("<h3 style='text-align:center;'>🍿 Vous aimerez aussi...</h3>", unsafe_allow_html=True)
+    
     cards_html = ""
     for _, row in resultats.iterrows():
         annee = str(row['release_date'])[:4]
@@ -279,19 +287,33 @@ if st.button("Recommander"):
     </script>
     """, height=420, scrolling=False)
 
-    st.markdown("""
+affiches = df['poster_url'].dropna().tolist()
+selection = random.sample(affiches, 21)
+
+st.markdown("<h3 style='text-align:center;'>🎬 Découvrez notre catalogue</h3>", unsafe_allow_html=True)
+
+for ligne in range(3):
+    cols = st.columns(7)
+    for i, col in enumerate(cols):
+        with col:
+            st.markdown(f"""
+                <img src="{selection[ligne * 7 + i]}" 
+                style="width:100%; height:130px; object-fit:cover; border-radius:10px; margin-bottom:8px; border: 2px solid black">
+            """, unsafe_allow_html=True)
+
+st.markdown("""
 <div style="
-    text-align: center;
-    padding: 1.2rem;
-    margin-top: 0;
-    background: rgba(255,255,255,0.05);
-    border: 0.5px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    font-family: sans-serif;
+text-align: center;
+padding: 1.2rem;
+margin-top: 0;
+background: rgba(255,255,255,0.05);
+border: 0.5px solid rgba(255,255,255,0.1);
+border-radius: 12px;
+font-family: sans-serif;
 ">
-    <span style="font-size: 13px; color: rgba(255,255,255,0.5);">
-        © 2026 &nbsp;<strong style="color: rgba(255,255,255,0.8);">Cinéma Lumière</strong>
-        &nbsp;·&nbsp; Trouvez votre prochain film préféré
-    </span>
+<span style="font-size: 13px; color: rgba(255,255,255,0.5);">
+    © 2026 &nbsp;<strong style="color: rgba(255,255,255,0.8);">Cinéma Lumière</strong>
+    &nbsp;·&nbsp; Trouvez votre prochain film préféré
+</span>
 </div>
 """, unsafe_allow_html=True)

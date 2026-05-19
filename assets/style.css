@@ -4,6 +4,8 @@ h1 {
     text-align: center;
 }
 
+h2, h3 { margin-bottom: 3rem !important; }
+
 h3 {
     color : white !important;
     text-align: center;
@@ -59,4 +61,18 @@ section[data-testid="stMain"] {
     align-items: center;
     justify-content: space-between;
     padding: 0.6rem 2rem;
+}
+
+div[data-testid="stSelectbox"] {
+    width: 50% !important;
+    margin: 0 auto !important;
+}
+
+div[data-testid="stButton"] {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+[data-testid="stSidebar"] {
+    display: none !important;
 }
